@@ -12,7 +12,7 @@
         <!--View Controller-->
         <scene sceneID="8jo-WG-uka">
             <objects>
-                <viewController id="vbw-fj-etX" customClass="ViewController" customModule="Trivia" sceneMemberID="viewController">
+                <viewController id="vbw-fj-etX" customClass="ViewController" customModule="Trivia" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="H4t-xh-A5X">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -42,6 +42,9 @@
                                             </backgroundConfiguration>
                                             <color key="baseForegroundColor" systemColor="labelColor"/>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="resetButtonTapped:" destination="vbw-fj-etX" eventType="touchUpInside" id="pRd-vt-Fu1"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -65,6 +68,9 @@
                                             <fontDescription key="titleFontDescription" type="system" pointSize="14"/>
                                             <color key="baseForegroundColor" systemColor="labelColor"/>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="answerButtonTapped:" destination="vbw-fj-etX" eventType="touchUpInside" id="lyK-tr-OzT"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qTz-6b-zLY">
                                         <rect key="frame" x="0.0" y="43" width="353" height="31"/>
@@ -77,6 +83,9 @@
                                             <fontDescription key="titleFontDescription" type="system" pointSize="14"/>
                                             <color key="baseForegroundColor" systemColor="labelColor"/>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="answerButtonTapped:" destination="vbw-fj-etX" eventType="touchUpInside" id="5rM-dC-WrG"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G2L-nk-BBg">
                                         <rect key="frame" x="0.0" y="86" width="353" height="34.333333333333343"/>
@@ -88,6 +97,9 @@
                                             </backgroundConfiguration>
                                             <color key="baseForegroundColor" systemColor="labelColor"/>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="answerButtonTapped:" destination="vbw-fj-etX" eventType="touchUpInside" id="3oG-i7-wXN"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xu8-Ru-B7i">
                                         <rect key="frame" x="0.0" y="132.33333333333326" width="353" height="34.333333333333343"/>
@@ -99,6 +111,9 @@
                                             </backgroundConfiguration>
                                             <color key="baseForegroundColor" systemColor="labelColor"/>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="answerButtonTapped:" destination="vbw-fj-etX" eventType="touchUpInside" id="vHF-ZC-ffz"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -116,10 +131,10 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="answerButtons" destination="OOq-5n-UeR" id="uE1-Md-RrD"/>
-                        <outlet property="questionLabel" destination="oS6-sP-XHd" id="BOB-a2-gFx"/>
-                        <outlet property="restartButton" destination="ars-5O-TYI" id="AyJ-op-LWE"/>
-                        <outlet property="scoreLabel" destination="ZMl-ZA-LBY" id="mhz-gH-lBw"/>
+                        <outlet property="questionCounterLabel" destination="ZMl-ZA-LBY" id="oDT-jg-f0O"/>
+                        <outlet property="questionLabel" destination="oS6-sP-XHd" id="Z3j-8y-6Vl"/>
+                        <outlet property="resetButton" destination="ars-5O-TYI" id="odP-0D-ogL"/>
+                        <outlet property="scoreLabel" destination="eAx-VM-AIK" id="z7b-IM-mel"/>
                         <outletCollection property="answerButtons" destination="N4D-NJ-oUD" collectionClass="NSMutableArray" id="1jM-th-tGe"/>
                         <outletCollection property="answerButtons" destination="qTz-6b-zLY" collectionClass="NSMutableArray" id="k0Y-eF-Ntw"/>
                         <outletCollection property="answerButtons" destination="G2L-nk-BBg" collectionClass="NSMutableArray" id="r4J-Jf-llD"/>
