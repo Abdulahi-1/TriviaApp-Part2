@@ -25,72 +25,100 @@ class ViewController: UIViewController {
     @IBOutlet var answerButtons: [UIButton]!
     
     
-    var questionsData: [(question: String, answers: [String], correctIndex: Int)] = [
-        ("What is the capital of France?", ["Paris", "Berlin", "Rome", "Madrid"], 0),
-        ("What is 2 + 2?", ["3", "4", "5", "6"], 1),
-        ("What color are bananas?", ["Blue", "Red", "Yellow", "Green"], 2)
-    ]
-
+    var triviaService = TriviaQuestionService()
+    var questions: [TriviaQuestion] = []
     var currentQuestionIndex = 0
     var score = 0
+    var allAnswers: [String] = []
 
-    @IBAction func answerButtonTapped(_ sender: UIButton) {
-        guard let selectedIndex = answerButtons.firstIndex(of: sender) else { return }
-        
-        let correctIndex = questionsData[currentQuestionIndex].correctIndex
-        
-        if selectedIndex == correctIndex {
-            score += 1
+
+    override func viewDidLoad() {
+            super.viewDidLoad()
+            fetchQuestions()
         }
 
-        currentQuestionIndex += 1
-        loadQuestion()
+        func fetchQuestions() {
+            triviaService.fetchTriviaQuestions { [weak self] result in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let questions):
+                        self?.questions = questions
+                        self?.currentQuestionIndex = 0
+                        self?.score = 0
+                        self?.loadQuestion()
+                    case .failure(let error):
+                        print("Failed to fetch questions: \(error)")
+                        // Handle error (e.g., alert)
+                    }
+                }
+            }
+        }
+    
+    func htmlDecodedString(_ string: String) -> String {
+        guard let data = string.data(using: .utf8) else { return string }
+        let options: [NSAttributedString.DocumentReadingOptionKey: Any] = [
+            .documentType: NSAttributedString.DocumentType.html,
+            .characterEncoding: String.Encoding.utf8.rawValue
+        ]
+        let attributedString = try? NSAttributedString(data: data, options: options, documentAttributes: nil)
+        return attributedString?.string ?? string
     }
 
-    
-    @IBAction func resetButtonTapped(_ sender: UIButton) {
-        currentQuestionIndex = 0
-        score = 0
-        loadQuestion()
-    }
-    
-    
-    
+
     func loadQuestion() {
-        if currentQuestionIndex < questionsData.count {
-            let current = questionsData[currentQuestionIndex]
-            questionLabel.text = current.question
-            questionCounterLabel.text = "Question \(currentQuestionIndex + 1) of \(questionsData.count)"
+        if currentQuestionIndex < questions.count {
+            let current = questions[currentQuestionIndex]
+            
+            // The API returns HTML entities, decode them for display:
+            questionLabel.text = htmlDecodedString(current.question)
+            questionCounterLabel.text = "Question \(currentQuestionIndex + 1) of \(questions.count)"
             scoreLabel.text = "Score: \(score)"
             
+            // Combine and shuffle answers
+            allAnswers = ([current.correct_answer] + current.incorrect_answers).shuffled()
+            
             for i in 0..<answerButtons.count {
-                answerButtons[i].isHidden = false
-                answerButtons[i].setTitle(current.answers[i], for: .normal)
+                if i < allAnswers.count {
+                    answerButtons[i].isHidden = false
+                    answerButtons[i].setTitle(htmlDecodedString(allAnswers[i]), for: .normal)
+                } else {
+                    answerButtons[i].isHidden = true
+                }
             }
-
+            
             resetButton.isHidden = true
         } else {
             questionLabel.text = "Quiz Complete!"
             questionCounterLabel.text = ""
-            scoreLabel.text = "Final Score: \(score)/\(questionsData.count)"
-
+            scoreLabel.text = "Final Score: \(score)/\(questions.count)"
+            
             for button in answerButtons {
                 button.isHidden = true
             }
-
+            
             resetButton.isHidden = false
         }
     }
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        loadQuestion()
-    }
 
 
+        @IBAction func answerButtonTapped(_ sender: UIButton) {
+            guard let selectedIndex = answerButtons.firstIndex(of: sender),
+                  currentQuestionIndex < questions.count else { return }
 
-    
+            let current = questions[currentQuestionIndex]
+            let correctAnswer = current.correct_answer
+
+            if allAnswers[selectedIndex] == correctAnswer {
+                score += 1
+            }
+
+            currentQuestionIndex += 1
+            loadQuestion()
+        }
+
+        @IBAction func resetButtonTapped(_ sender: UIButton) {
+            fetchQuestions()
+        }
     
     
     
