@@ -2,7 +2,7 @@
 
 Submitted by: Abdulahi Abdi
 
-Trivia_IOS is an app that allows users to answer multiple choice questions pulled from a trivia API, track their score, and reset the game to try new questions
+Trivia_IOS is an iOS application that allows users to test their knowledge by answering a set of trivia questions. The app fetches questions from the Open Trivia Database API and presents them in a simple interface where users can select answers, track their progress, and view their score at the end of the game. It demonstrates networking, JSON decoding, UI updates, and data passing in iOS using Swift and Storyboard.
 
 Time spent: 6 hours spent in total
 
