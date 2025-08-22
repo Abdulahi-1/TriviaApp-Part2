@@ -1,8 +1,8 @@
-# Trivia_Part2
+# Trivia_IOS_Part2
 
 Submitted by: Abdulahi Abdi
 
-Trivia is an app that allows users to answer multiple choice questions pulled from a trivia API, track their score, and reset the game to try new questions
+Trivia_IOS is an app that allows users to answer multiple choice questions pulled from a trivia API, track their score, and reset the game to try new questions
 
 Time spent: 6 hours spent in total
 
@@ -33,7 +33,7 @@ https://www.loom.com/share/8a7c97d5751142cca06547dbbac185e1?sid=a7dbbd61-4206-42
 
 ## Notes
 
-I initially struggled with how stack views interacted with constraints and how changes in one view affected others. I had to experiment with constraint priorities and spacing.
+I initially struggled with how stack views interacted with constraints and how changes in one view affected others. To resolve this, I experimented with constraint priorities, adjusted spacing, and used alignment settings in Interface Builder to ensure the layout adapted correctly across different screen sizes. The outcome was a clean and responsive UI where questions, answers, and buttons are consistently aligned, making the app easier to navigate and more visually appealing.
 
 ## License
 
