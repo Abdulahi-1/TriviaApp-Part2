@@ -1,4 +1,4 @@
-# Project 4 - Trivia 
+# Trivia_Part2
 
 Submitted by: Abdulahi Abdi
 
